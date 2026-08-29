@@ -1,0 +1,433 @@
+<title>FleetNexus</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root {
+  --navy: #0D1E3F;
+  --navy-mid: #142B52;
+  --navy-light: #1E3A6E;
+  --cyan: #00BAEF;
+  --cyan-dark: #0094C8;
+  --cyan-glow: rgba(0,186,239,0.13);
+  --bg: #F4F7FB;
+  --bg-card: #FFFFFF;
+  --text: #0D1E3F;
+  --text-mid: #4A6080;
+  --text-light: #8AA0BC;
+  --border: #DDE6F0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #070F1E;
+    --bg-card: #0C1B34;
+    --text: #E2ECF8;
+    --text-mid: #7090B0;
+    --text-light: #4A6A80;
+    --border: #182A44;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #070F1E;
+  --bg-card: #0C1B34;
+  --text: #E2ECF8;
+  --text-mid: #7090B0;
+  --text-light: #4A6A80;
+  --border: #182A44;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+/* LOGO MARK */
+.logo-mark {
+  display: flex; align-items: center; gap: 11px;
+  text-decoration: none; flex-shrink: 0;
+}
+.logo-mark .icon { width: 38px; height: 38px; display: block; }
+.logo-mark .wordmark {
+  font-family: 'Exo 2', sans-serif; font-weight: 800;
+  font-size: 1.25rem; line-height: 1; letter-spacing: -0.01em;
+}
+.logo-mark .fleet { color: #FFFFFF; }
+.logo-mark .nexus { color: var(--cyan); }
+.logo-mark.light .fleet { color: var(--navy); }
+
+.logo-mark.sm .icon { width: 28px; height: 28px; }
+.logo-mark.sm .wordmark { font-size: 0.95rem; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%; height: 68px;
+  background: rgba(13,30,63,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,186,239,0.1);
+}
+.nav-cta {
+  background: var(--cyan); color: var(--navy);
+  padding: 10px 22px; border-radius: 6px;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem;
+  text-decoration: none; letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: #33CAFF; transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; background: var(--navy);
+  display: flex; align-items: center;
+  padding: 100px 5% 80px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 55% at 72% 50%, rgba(0,186,239,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.hero-eyebrow {
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 26px; height: 2px; background: var(--cyan);
+}
+.hero h1 {
+  font-family: 'Exo 2', sans-serif; font-weight: 800;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  line-height: 1.12; color: #FFFFFF; text-wrap: balance; margin-bottom: 22px;
+}
+.hero h1 span { color: var(--cyan); }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,0.6);
+  max-width: 480px; margin-bottom: 38px; line-height: 1.72;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--cyan); color: var(--navy);
+  padding: 14px 30px; border-radius: 6px;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.93rem;
+  text-decoration: none; letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-primary:hover { background: #33CAFF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,186,239,0.28); }
+.btn-secondary {
+  border: 1.5px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.8);
+  padding: 14px 30px; border-radius: 6px;
+  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.93rem;
+  text-decoration: none; transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+.stat-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,186,239,0.14);
+  border-radius: 10px; padding: 20px;
+}
+.stat-card .num {
+  font-family: 'Exo 2', sans-serif; font-weight: 700;
+  font-size: 1.9rem; color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+.stat-card .lbl {
+  font-size: 0.76rem; color: rgba(255,255,255,0.45);
+  margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* MODULE STRIP */
+.modules-strip {
+  background: var(--navy-mid); padding: 18px 5%;
+  display: flex; align-items: center; justify-content: center;
+  gap: 36px; flex-wrap: wrap;
+  border-top: 1px solid rgba(0,186,239,0.1);
+  border-bottom: 1px solid rgba(0,186,239,0.1);
+}
+.module-tag {
+  font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  display: flex; align-items: center; gap: 7px;
+}
+.module-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); opacity: 0.55; }
+
+/* FEATURES */
+.features { padding: 96px 5%; background: var(--bg); }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-label {
+  font-size: 0.73rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--cyan-dark);
+  margin-bottom: 12px; display: block;
+}
+.section-header h2 {
+  font-family: 'Exo 2', sans-serif; font-weight: 700;
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  color: var(--text); text-wrap: balance; line-height: 1.2;
+}
+.section-header p {
+  margin-top: 14px; color: var(--text-mid);
+  max-width: 500px; margin-left: auto; margin-right: auto; font-size: 0.98rem;
+}
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px; max-width: 1200px; margin: 0 auto;
+}
+.feature-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 30px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.feature-card:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 4px 24px rgba(0,186,239,0.09);
+  transform: translateY(-3px);
+}
+.feature-icon {
+  width: 46px; height: 46px; border-radius: 10px;
+  background: var(--cyan-glow); border: 1px solid rgba(0,186,239,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 18px;
+}
+.feature-card h3 {
+  font-family: 'Exo 2', sans-serif; font-weight: 600;
+  font-size: 1.05rem; color: var(--text); margin-bottom: 9px;
+}
+.feature-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+.feature-badge {
+  display: inline-block; margin-top: 12px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
+  background: var(--cyan-glow); color: var(--cyan-dark);
+  border: 1px solid rgba(0,186,239,0.18);
+}
+
+/* WHO IT'S FOR */
+.for-section { padding: 96px 5%; background: var(--navy); }
+.for-section .section-header h2 { color: #FFFFFF; }
+.for-section .section-header p { color: rgba(255,255,255,0.5); }
+.for-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; max-width: 1000px; margin: 0 auto;
+}
+.for-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,186,239,0.11);
+  border-radius: 10px; padding: 26px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.for-card:hover { background: rgba(0,186,239,0.07); border-color: rgba(0,186,239,0.28); }
+.for-card .ico { font-size: 1.7rem; margin-bottom: 12px; }
+.for-card h3 { font-family: 'Exo 2', sans-serif; font-weight: 600; font-size: 0.98rem; color: #FFFFFF; margin-bottom: 7px; }
+.for-card p { font-size: 0.85rem; color: rgba(255,255,255,0.42); line-height: 1.6; }
+
+/* REGIONS */
+.regions {
+  background: var(--navy-mid); padding: 48px 5%;
+  display: flex; align-items: center; justify-content: center;
+  gap: 64px; flex-wrap: wrap;
+  border-top: 1px solid rgba(0,186,239,0.1);
+}
+.region-label {
+  font-size: 0.73rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--cyan);
+}
+.region { text-align: center; }
+.region .flag { font-size: 1.8rem; margin-bottom: 6px; }
+.region .name {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.36);
+}
+
+/* CTA */
+.cta-section { padding: 112px 5%; background: var(--bg); text-align: center; }
+.cta-section h2 {
+  font-family: 'Exo 2', sans-serif; font-weight: 800;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  color: var(--text); text-wrap: balance; margin-bottom: 14px;
+}
+.cta-section h2 span { color: var(--cyan-dark); }
+.cta-section p { color: var(--text-mid); font-size: 1rem; margin-bottom: 36px; }
+.cta-email { display: inline-block; margin-top: 22px; font-size: 0.86rem; color: var(--text-light); }
+.cta-email a { color: var(--cyan-dark); text-decoration: none; font-weight: 500; }
+.cta-email a:hover { text-decoration: underline; }
+
+/* FOOTER */
+footer {
+  background: var(--navy); padding: 28px 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px;
+  border-top: 1px solid rgba(0,186,239,0.1);
+}
+.footer-text { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .modules-strip { gap: 20px; }
+  .regions { gap: 36px; }
+}
+</style>
+
+<!-- SVG ICON SYMBOL (reusable) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="fn-icon" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="47" fill="#0D1E3F"/>
+    <circle cx="50" cy="50" r="47" fill="none" stroke="#00BAEF" stroke-width="1.2" opacity="0.25"/>
+    <line x1="50" y1="50" x2="86" y2="50" stroke="#00BAEF" stroke-width="1.6" opacity="0.75"/>
+    <line x1="50" y1="50" x2="68" y2="19" stroke="#00BAEF" stroke-width="1.6" opacity="0.75"/>
+    <line x1="50" y1="50" x2="32" y2="19" stroke="#00BAEF" stroke-width="1.6" opacity="0.75"/>
+    <line x1="50" y1="50" x2="14" y2="50" stroke="#00BAEF" stroke-width="1.6" opacity="0.75"/>
+    <line x1="50" y1="50" x2="32" y2="81" stroke="#00BAEF" stroke-width="1.6" opacity="0.75"/>
+    <line x1="50" y1="50" x2="68" y2="81" stroke="#00BAEF" stroke-width="1.6" opacity="0.75"/>
+    <line x1="86" y1="50" x2="68" y2="19" stroke="#00BAEF" stroke-width="1" opacity="0.22"/>
+    <line x1="68" y1="19" x2="32" y2="19" stroke="#00BAEF" stroke-width="1" opacity="0.22"/>
+    <line x1="32" y1="19" x2="14" y2="50" stroke="#00BAEF" stroke-width="1" opacity="0.22"/>
+    <line x1="14" y1="50" x2="32" y2="81" stroke="#00BAEF" stroke-width="1" opacity="0.22"/>
+    <line x1="32" y1="81" x2="68" y2="81" stroke="#00BAEF" stroke-width="1" opacity="0.22"/>
+    <line x1="68" y1="81" x2="86" y2="50" stroke="#00BAEF" stroke-width="1" opacity="0.22"/>
+    <circle cx="86" cy="50" r="4.5" fill="#00BAEF"/>
+    <circle cx="68" cy="19" r="4.5" fill="#00BAEF"/>
+    <circle cx="32" cy="19" r="4.5" fill="#00BAEF"/>
+    <circle cx="14" cy="50" r="4.5" fill="#00BAEF"/>
+    <circle cx="32" cy="81" r="4.5" fill="#00BAEF"/>
+    <circle cx="68" cy="81" r="4.5" fill="#00BAEF"/>
+    <circle cx="50" cy="50" r="8" fill="#00BAEF"/>
+    <circle cx="50" cy="50" r="4.5" fill="#0D1E3F"/>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-mark">
+    <svg class="icon"><use href="#fn-icon"/></svg>
+    <div class="wordmark"><span class="fleet">FLEET</span><span class="nexus">NEXUS</span></div>
+  </a>
+  <a href="mailto:nishant@aasaan.in?subject=FleetNexus Demo Request" class="nav-cta">Request a Demo</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Fleet &amp; Ship Management ERP</div>
+      <h1>Operations That <span>Never Stop</span> Deserve Software That Keeps Up</h1>
+      <p class="hero-sub">FleetNexus brings your fleet, HR, procurement, and logistics into one system — built for the complexity of Middle East and European operations.</p>
+      <div class="hero-actions">
+        <a href="mailto:nishant@aasaan.in?subject=FleetNexus Demo Request" class="btn-primary">Request a Demo</a>
+        <a href="#features" class="btn-secondary">See What's Inside</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-cards">
+        <div class="stat-card"><div class="num">8+</div><div class="lbl">Integrated Modules</div></div>
+        <div class="stat-card"><div class="num">100%</div><div class="lbl">Custom Invoicing</div></div>
+        <div class="stat-card"><div class="num">VAT</div><div class="lbl">Compliant Billing</div></div>
+        <div class="stat-card"><div class="num">Live</div><div class="lbl">Fleet Tracking</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE STRIP -->
+<div class="modules-strip">
+  <div class="module-tag"><span class="dot"></span>Fleet Management</div>
+  <div class="module-tag"><span class="dot"></span>HR &amp; Payroll</div>
+  <div class="module-tag"><span class="dot"></span>Purchase &amp; Procurement</div>
+  <div class="module-tag"><span class="dot"></span>Sales &amp; Invoicing</div>
+  <div class="module-tag"><span class="dot"></span>Logistics</div>
+  <div class="module-tag"><span class="dot"></span>Accounting</div>
+  <div class="module-tag"><span class="dot"></span>Warehouse</div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header">
+    <span class="section-label">Why FleetNexus</span>
+    <h2>Everything Your Operations Need.<br>Nothing You Don't.</h2>
+    <p>Built from real operational experience — not from a product roadmap written in a boardroom.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🚛</div>
+      <h3>Fleet &amp; Delivery Management</h3>
+      <p>Track vehicles, manage routes, assign drivers, and monitor delivery notes in real time — all from one dashboard.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <h3>Custom Invoice Builder</h3>
+      <p>Design your own invoice layout — drag fields anywhere, add your branding, set your format. No rigid templates.</p>
+      <span class="feature-badge">Differentiator</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>HR &amp; Payroll</h3>
+      <p>Employee onboarding, attendance, leave management, payroll processing, and appraisals — fully integrated with operations.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛒</div>
+      <h3>Purchase &amp; Procurement</h3>
+      <p>Manage purchase orders, vendor quotes, goods receipt, and purchase invoices with full approval workflows.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Accounting &amp; Finance</h3>
+      <p>Journal entries, bank reconciliation, VAT-compliant invoicing, and real-time financial reporting built in.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏭</div>
+      <h3>Warehouse &amp; Inventory</h3>
+      <p>Stock tracking, warehouse management, material transfers, and inventory reporting across multiple locations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="for-section">
+  <div class="section-header">
+    <span class="section-label">Built For</span>
+    <h2>Operations That Run the Region</h2>
+    <p>FleetNexus is designed for mid-size companies that run fleets, manage people, and can't afford system downtime.</p>
+  </div>
+  <div class="for-grid">
+    <div class="for-card"><div class="ico">🚢</div><h3>Ship Management</h3><p>Vessel operations, crew management, compliance tracking, and port documentation.</p></div>
+    <div class="for-card"><div class="ico">🚛</div><h3>Fleet Operators</h3><p>Land fleets, delivery networks, logistics hubs, and transportation companies.</p></div>
+    <div class="for-card"><div class="ico">♻️</div><h3>Environmental Services</h3><p>Waste management, recycling operations, and environmental compliance businesses.</p></div>
+    <div class="for-card"><div class="ico">📦</div><h3>Logistics &amp; Distribution</h3><p>Multi-warehouse distributors, freight forwarders, and supply chain operators.</p></div>
+  </div>
+</section>
+
+<!-- REGIONS -->
+<div class="regions">
+  <span class="region-label">Serving</span>
+  <div class="region"><div class="flag">🇦🇪</div><div class="name">UAE</div></div>
+  <div class="region"><div class="flag">🇸🇦</div><div class="name">Saudi Arabia</div></div>
+  <div class="region"><div class="flag">🇶🇦</div><div class="name">Qatar</div></div>
+  <div class="region"><div class="flag">🇬🇷</div><div class="name">Greece</div></div>
+  <div class="region"><div class="flag">🇳🇱</div><div class="name">Netherlands</div></div>
+  <div class="region"><div class="flag">🇳🇴</div><div class="name">Norway</div></div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to Bring Your Operations <span>Under Control?</span></h2>
+  <p>Book a 30-minute demo. See FleetNexus running on real operational data.</p>
+  <a href="mailto:nishant@aasaan.in?subject=FleetNexus Demo Request&body=Hi, I'd like to schedule a demo of FleetNexus." class="btn-primary" style="font-size:1rem;padding:15px 38px">Book a Free Demo</a>
+  <div class="cta-email">Or email us directly at <a href="mailto:nishant@aasaan.in">nishant@aasaan.in</a></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo-mark sm">
+    <svg class="icon"><use href="#fn-icon"/></svg>
+    <div class="wordmark"><span class="fleet">FLEET</span><span class="nexus">NEXUS</span></div>
+  </a>
+  <div class="footer-text">© 2026 FleetNexus. Fleet &amp; Ship Management ERP.</div>
+</footer>
