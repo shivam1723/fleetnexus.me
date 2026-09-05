@@ -719,13 +719,20 @@ ul { list-style: none; }
   gap: 18px;
 }
 
-.footer-links a {
+.footer-links a,
+.footer-link-btn {
   font-size: 0.84rem;
   color: rgba(255, 255, 255, 0.55);
   font-weight: 500;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-.footer-links a:hover { color: var(--cyan); }
+.footer-links a:hover,
+.footer-link-btn:hover { color: var(--cyan); }
 
 /* Privacy */
 .page-privacy { background: var(--paper); min-height: 100vh; }
@@ -769,6 +776,195 @@ ul { list-style: none; }
 .privacy-footer a {
   color: var(--cyan-dark);
   font-weight: 600;
+}
+
+/* ========== DEMO MODAL ========== */
+.nav-cta,
+.mobile-cta {
+  cursor: pointer;
+}
+
+.demo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s var(--ease), visibility 0.28s;
+}
+
+.demo-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.demo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 14, 28, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.demo-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(480px, 100%);
+  max-height: min(90vh, 720px);
+  overflow: auto;
+  background: var(--paper);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.28s var(--ease);
+}
+
+.demo-modal.is-open .demo-modal__panel {
+  transform: none;
+}
+
+.demo-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+.demo-modal__close:hover { color: var(--text); background: var(--sand); }
+
+.demo-modal__title {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  padding-right: 36px;
+}
+
+.demo-modal__sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+.demo-form {
+  display: grid;
+  gap: 14px;
+}
+
+.demo-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.demo-form input,
+.demo-form select,
+.demo-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font: inherit;
+  font-weight: 500;
+  background: #fff;
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.demo-form input:focus,
+.demo-form select:focus,
+.demo-form textarea:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0, 186, 239, 0.18);
+}
+
+.demo-form textarea { min-height: 96px; resize: vertical; }
+
+.demo-form__honey {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.demo-form__submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.demo-form__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+
+.demo-form__status {
+  font-size: 0.88rem;
+  min-height: 1.2em;
+  color: var(--muted);
+}
+
+.demo-form__status.is-error { color: #b42318; }
+.demo-form__status.is-success { color: #027a48; }
+
+.demo-form__note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* FAQ */
+.faq {
+  background: var(--sand);
+}
+
+.faq-list {
+  margin-top: 48px;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+}
+
+.faq-item h3 {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.faq-item p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 40rem;
 }
 
 /* ========== RESPONSIVE ========== */
