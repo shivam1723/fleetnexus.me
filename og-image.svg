@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="75%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#00BAEF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0D1E3F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0D1E3F"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(120, 200)">
+    <circle cx="40" cy="40" r="38" fill="#0D1E3F" stroke="#00BAEF" stroke-width="1.5" opacity="0.9"/>
+    <g transform="translate(40,40) scale(0.72)" stroke="#00BAEF" fill="#00BAEF">
+      <line x1="0" y1="0" x2="36" y2="0" stroke-width="1.6" opacity="0.75" fill="none"/>
+      <line x1="0" y1="0" x2="18" y2="-31" stroke-width="1.6" opacity="0.75" fill="none"/>
+      <line x1="0" y1="0" x2="-18" y2="-31" stroke-width="1.6" opacity="0.75" fill="none"/>
+      <line x1="0" y1="0" x2="-36" y2="0" stroke-width="1.6" opacity="0.75" fill="none"/>
+      <line x1="0" y1="0" x2="-18" y2="31" stroke-width="1.6" opacity="0.75" fill="none"/>
+      <line x1="0" y1="0" x2="18" y2="31" stroke-width="1.6" opacity="0.75" fill="none"/>
+      <circle cx="36" cy="0" r="4"/>
+      <circle cx="18" cy="-31" r="4"/>
+      <circle cx="-18" cy="-31" r="4"/>
+      <circle cx="-36" cy="0" r="4"/>
+      <circle cx="-18" cy="31" r="4"/>
+      <circle cx="18" cy="31" r="4"/>
+      <circle cx="0" cy="0" r="7"/>
+      <circle cx="0" cy="0" r="3.5" fill="#0D1E3F"/>
+    </g>
+    <text x="110" y="55" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="52" letter-spacing="-1">
+      <tspan fill="#FFFFFF">FLEET</tspan><tspan fill="#00BAEF">NEXUS</tspan>
+    </text>
+  </g>
+  <text x="120" y="340" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="42" fill="#FFFFFF">Fleet &amp; Ship Management ERP</text>
+  <text x="120" y="400" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="rgba(255,255,255,0.55)">Built for Middle East and European operations</text>
+  <text x="120" y="540" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#00BAEF">fleetnexus.me</text>
+</svg>
