@@ -350,15 +350,27 @@ ul { list-style: none; }
 .offer-line {
   margin-top: 18px;
   font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--cyan);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.01em;
 }
 
+.offer-tag {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: -0.01em;
+}
+
 .offer-line--dark {
-  color: var(--cyan-dark);
+  color: var(--muted);
   margin-top: 16px;
   margin-bottom: 0;
+}
+
+.offer-line--dark .offer-tag,
+.cta .lead strong {
+  color: var(--cyan-dark);
 }
 
 .cta .offer-line--dark + .cta-mail {
